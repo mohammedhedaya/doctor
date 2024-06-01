@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "838019629691",
+    "project_id": "helpmetalk-3117f",
+    "storage_bucket": "helpmetalk-3117f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838019629691:android:24dba10d67660dac7e18de",
+        "android_client_info": {
+          "package_name": "com.example.doctor_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838019629691-tftbe23lmrr33ith0drmbqnejs7botf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgt3L_EhJOaEaHs0QG2ebnitzKuw8Zbfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838019629691-tftbe23lmrr33ith0drmbqnejs7botf3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "838019629691-1tn60pg2bvoluga50lm83cnpkrr8bqhd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.doctorChat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838019629691:android:2e0b73a29a60770a7e18de",
+        "android_client_info": {
+          "package_name": "com.thebesacademygraduationproject.help_me_talk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838019629691-2oena099ejd6cd4gkhfrkcdoacerece2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thebesacademygraduationproject.help_me_talk",
+            "certificate_hash": "d7385932af28435ad89e9771c0438646d36a7133"
+          }
+        },
+        {
+          "client_id": "838019629691-tftbe23lmrr33ith0drmbqnejs7botf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgt3L_EhJOaEaHs0QG2ebnitzKuw8Zbfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838019629691-tftbe23lmrr33ith0drmbqnejs7botf3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "838019629691-1tn60pg2bvoluga50lm83cnpkrr8bqhd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.doctorChat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
