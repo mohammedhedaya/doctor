@@ -1,5 +1,6 @@
 import 'package:doctor_chat/auth/LoginAndSignup/screen/login.dart';
 import 'package:doctor_chat/firebase_options.dart';
+import 'package:doctor_chat/view/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: HomePage(),
     );
   }
 }
