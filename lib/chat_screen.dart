@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-
 class DoctorChatScreen extends StatefulWidget {
   const DoctorChatScreen({super.key});
 
@@ -27,11 +26,48 @@ class _DoctorChatScreenState extends State<DoctorChatScreen> {
     _scrollToBottom();
   }
 
+  void _deleteMessage(String messageId, bool deleteForEveryone) {
+    if (deleteForEveryone) {
+      // Implement logic to delete message for everyone
+      _firestore.collection('chats').doc(chatId).collection('messages').doc(messageId).delete();
+    } else {
+      // Implement logic to delete message for self (soft delete or hide)
+    }
+  }
+
   void _scrollToBottom() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
+    );
+  }
+
+  void _showDeleteOptions(String messageId) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Wrap(
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.delete,color:Colors.red,),
+              title: const Text('حذف لدي'),
+              onTap: () {
+                _deleteMessage(messageId, false);
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.delete_forever,color: Colors.red,),
+              title: const Text('حذف لدي الطرفين'),
+              onTap: () {
+                _deleteMessage(messageId, true);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -80,53 +116,58 @@ class _DoctorChatScreenState extends State<DoctorChatScreen> {
                         controller: _scrollController,
                         itemCount: messages.length,
                         itemBuilder: (context, index) {
-                          var message = messages[index]['message'];
-                          var sender = messages[index]['sender'];
-                          var timestamp = messages[index]['timestamp'] as Timestamp?;
+                          var messageData = messages[index];
+                          var messageId = messageData.id;
+                          var message = messageData['message'];
+                          var sender = messageData['sender'];
+                          var timestamp = messageData['timestamp'] as Timestamp?;
                           String time = timestamp != null
                               ? DateFormat('hh:mm a').format(timestamp.toDate())
                               : '';
                           bool isDoctor = sender == 'الدكتور';
-                          return Container(
-                            padding: const EdgeInsets.all(8.0),
-                            alignment: isDoctor ? Alignment.centerRight : Alignment.centerLeft,
+                          return GestureDetector(
+                            onLongPress: () => _showDeleteOptions(messageId),
                             child: Container(
-                              decoration: BoxDecoration(
-                                color: isDoctor ? Colors.blue.withOpacity(0.8) : Colors.grey[300]!.withOpacity(0.8),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                crossAxisAlignment: isDoctor ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    message,
-                                    style: TextStyle(
-                                      color: isDoctor ? Colors.white : Colors.black,
+                              padding: const EdgeInsets.all(8.0),
+                              alignment: isDoctor ? Alignment.centerRight : Alignment.centerLeft,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: isDoctor ? Colors.blue.withOpacity(0.8) : Colors.grey[300]!.withOpacity(0.8),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: isDoctor ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      message,
+                                      style: TextStyle(
+                                        color: isDoctor ? Colors.white : Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 5.0),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        time,
-                                        style: TextStyle(
-                                          fontSize: 10.0,
-                                          color: isDoctor ? Colors.white70 : Colors.black54,
+                                    const SizedBox(height: 5.0),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          time,
+                                          style: TextStyle(
+                                            fontSize: 10.0,
+                                            color: isDoctor ? Colors.white70 : Colors.black54,
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 5.0),
-                                      Text(
-                                        sender,
-                                        style: TextStyle(
-                                          fontSize: 10.0,
-                                          color: isDoctor ? Colors.white70 : Colors.black54,
+                                        const SizedBox(width: 5.0),
+                                        Text(
+                                          sender,
+                                          style: TextStyle(
+                                            fontSize: 10.0,
+                                            color: isDoctor ? Colors.white70 : Colors.black54,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );

@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:just_audio/just_audio.dart';
 
-class ResponsesListScreen extends StatelessWidget {
+class ResponsesListScreen extends StatefulWidget {
+  @override
+  _ResponsesListScreenState createState() => _ResponsesListScreenState();
+}
+
+class _ResponsesListScreenState extends State<ResponsesListScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final AudioPlayer _audioPlayer = AudioPlayer();
+  int? _playingIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +18,11 @@ class ResponsesListScreen extends StatelessWidget {
       appBar: AppBar(
         title: Center(
           child: const Text(
-            'الحلول المقدمة',
+            'نتائج التمارين',
             style: TextStyle(color: Colors.blue),
           ),
         ),
         iconTheme: IconThemeData(color: Colors.blue),
-        // Change the icon color
-
         actions: [
           IconButton(
             icon: Icon(Icons.delete, color: Colors.blue),
@@ -61,14 +65,31 @@ class ResponsesListScreen extends StatelessWidget {
             itemCount: responses.length,
             itemBuilder: (context, index) {
               var response = responses[index];
-              return ListTile(
-                title: Text('رد على التمرين ID: ${response['exercise_id']}'),
-                trailing: IconButton(
-                  icon: const Icon(Icons.play_arrow),
-                  onPressed: () async {
-                    await _audioPlayer.setUrl(response['audio_url']);
-                    _audioPlayer.play();
-                  },
+              bool isPlaying = _playingIndex == index;
+              return Card(
+                margin: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  title: Text(
+                    'نتيجة تمرين رقم ${index + 1}',
+                    style: TextStyle(color: Colors.pink),
+                  ),
+                  trailing: IconButton(
+                    icon: Icon(
+                      isPlaying ? Icons.pause : Icons.play_circle_filled_rounded,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () async {
+                      if (isPlaying) {
+                        await _audioPlayer.play();
+                      } else {
+                        await _audioPlayer.setUrl(response['audio_url']);
+                        await _audioPlayer.pause();
+                      }
+                      setState(() {
+                        _playingIndex = isPlaying ? null : index;
+                      });
+                    },
+                  ),
                 ),
               );
             },

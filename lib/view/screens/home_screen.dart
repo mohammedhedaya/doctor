@@ -1,4 +1,5 @@
 import 'package:doctor_chat/auth/LoginAndSignup/screen/login.dart';
+import 'package:doctor_chat/view/screens/DataOfChild/dataaboutchild.dart';
 import 'package:doctor_chat/view/screens/ScreenInDrawer/PrivacyPolicyScreen.dart';
 import 'package:doctor_chat/view/screens/ScreenInDrawer/UserDetailsScreen.dart';
 import 'package:doctor_chat/view/screens/ScreenInDrawer/contactus.dart';
@@ -11,7 +12,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('الصفحه الرئيسيه',)),
+        title: Center(
+          child: Text('الصفحه الرئيسيه'),
+        ),
       ),
       drawer: Drawer(
         child: Container(
@@ -33,7 +36,8 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.person),
-                title: Text('تفاصيل شخصية'),tileColor: Colors.blue,
+                title: Text('تفاصيل شخصية'),
+                tileColor: Colors.blue,
                 textColor: Colors.black,
                 iconColor: Colors.blue,
                 onTap: () {
@@ -47,21 +51,32 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.policy),
-                title: Text('سياسة الخصوصية'),tileColor: Colors.blue,
+                title: Text('سياسة الخصوصية'),
+                tileColor: Colors.blue,
                 textColor: Colors.black,
                 iconColor: Colors.blue,
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>PrivacyPolicyScreen()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PrivacyPolicyScreen(),
+                    ),
+                  );
                 },
               ),
               ListTile(
                 leading: Icon(Icons.contact_phone),
-                title: Text('اتصل بنا'),tileColor: Colors.blue,
+                title: Text('اتصل بنا'),
+                tileColor: Colors.blue,
                 textColor: Colors.black,
                 iconColor: Colors.blue,
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactUsScreen()));
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ContactUsScreen(),
+                    ),
+                  );
                 },
               ),
               ListTile(
@@ -84,15 +99,43 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          CategoriesFields(
-                (category) {
-              // Do something with the selected category
-            },
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CategoriesFields(
+                  (category) {
+                // Do something with the selected category
+              },
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        notchMargin: 10,
+        shape: CircularNotchedRectangle(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> DoctorScreen()));
+              },
+              icon: Icon(
+                Icons.list,
+                color: Colors.blue,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.settings,
+                color: Colors.blue,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
+
 }

@@ -37,7 +37,7 @@ class _CategoriesFieldsState extends State<CategoriesFields> {
               ),
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  if (categories[index].title == "التواصل مع الطفل") {
+                  if (categories[index].title == "التواصل مع ولي الامر") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -51,14 +51,14 @@ class _CategoriesFieldsState extends State<CategoriesFields> {
                         builder: (context) => AddExerciseScreen(),
                       ),
                     );
-                  } else if (categories[index].title == "الحلول المقدمه") {
+                  } else if (categories[index].title == "نتائج التمارين") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ResponsesListScreen(),
                       ),
                     );
-                  } else if (categories[index].title == "تحديد موعد") {
+                  } else if (categories[index].title == "تحديد موعد تمارين") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(

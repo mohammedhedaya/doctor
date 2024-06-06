@@ -39,27 +39,55 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
     }
   }
 
+  Future<int> _getNextExerciseNumber() async {
+    var exercises = await _firestore.collection('exercises').orderBy('number', descending: true).limit(1).get();
+    if (exercises.docs.isEmpty) {
+      return 1;
+    }
+    return exercises.docs.first['number'] + 1;
+  }
+
   void _addExercise() async {
     String title = _titleController.text;
     String description = _descriptionController.text;
 
     if (title.trim().isEmpty || description.trim().isEmpty || _image == null) return;
 
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 20),
+              Text('يرجى الانتظار جاري ارسال التمرين'),
+            ],
+          ),
+        );
+      },
+    );
+
     String? imageUrl = await _uploadImage(_image!);
+    int nextNumber = await _getNextExerciseNumber();
 
     if (imageUrl == null) {
+      Navigator.of(context).pop();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('فشل في رفع الصورة')),
       );
       return;
     }
 
-    _firestore.collection('exercises').add({
+    await _firestore.collection('exercises').add({
       'title': title,
       'description': description,
       'imageUrl': imageUrl,
       'created_by': 'doctor_id', // استخدم معرف الطبيب الفعلي هنا
       'timestamp': FieldValue.serverTimestamp(),
+      'number': nextNumber,
     });
 
     _titleController.clear();
@@ -68,6 +96,7 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
       _image = null;
     });
 
+    Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('تم إضافة التمرين بنجاح')),
     );
@@ -75,7 +104,8 @@ class _AddExerciseScreenState extends State<AddExerciseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.white,
+    return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
           'إضافة تمرين',
