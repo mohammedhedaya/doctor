@@ -117,28 +117,28 @@ class _SignupScreenState extends State<SignupScreen> {
                 TextFieldInput(
                   icon: Icons.person,
                   textEditingController: nameController,
-                  hintText: 'Enter your name',
+                  hintText: 'الاسم',
                   textInputType: TextInputType.text,
                 ),
                 TextFieldInput(
                   icon: Icons.email,
                   textEditingController: emailController,
-                  hintText: 'Enter your email',
+                  hintText: 'البريد الالكتروني',
                   textInputType: TextInputType.text,
                 ),
                 TextFieldInput(
                   icon: Icons.lock,
                   textEditingController: passwordController,
-                  hintText: 'Enter your password',
+                  hintText: 'كلمه المرور',
                   textInputType: TextInputType.text,
                   isPass: true,
                 ),
-                MyButtons(onTap: signupUser, text: "Sign Up"),
+                MyButtons(onTap: signupUser, text: "انشاء"),
                 const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Already have an account?"),
+                    const Text("هل لديك حساب بالفعل"),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(
@@ -148,7 +148,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         );
                       },
                       child: const Text(
-                        " Login",
+                        "العوده لتسجبل الدخول",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     )

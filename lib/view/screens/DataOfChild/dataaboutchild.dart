@@ -1,20 +1,59 @@
-import 'package:doctor_chat/view/screens/DataOfChild/DiagnosisScreen.dart';
+import 'package:doctor_chat/view/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_chat/view/screens/DataOfChild/DiagnosisScreen.dart';
 
-class DoctorScreen extends StatelessWidget {
+class InfoForChildren extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Center(
-          child: Text('معلومات الأطفال',style: TextStyle(color: Colors.blue),),
+          child: Text('معلومات الأطفال', style: TextStyle(color: Colors.blue)),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.blue),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete, color: Colors.blue),
+            onPressed: () async {
+              bool confirm = await showDialog(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  title: Text('تأكيد الحذف'),
+                  content:
+                      Text('هل أنت متأكد أنك تريد مسح جميع الأطفال المسجلين؟'),
+                  actions: [
+                    TextButton(
+                      child: Text('إلغاء'),
+                      onPressed: () => Navigator.of(ctx).pop(false),
+                    ),
+                    TextButton(
+                      child: Text('تأكيد'),
+                      onPressed: () => Navigator.of(ctx).pop(true),
+                    ),
+                  ],
+                ),
+              );
+              if (confirm) {
+                final children = await FirebaseFirestore.instance
+                    .collection('children')
+                    .get();
+                for (var doc in children.docs) {
+                  await doc.reference.delete();
+                }
+              }
+            },
+          ),
+        ],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -108,5 +147,3 @@ class DoctorScreen extends StatelessWidget {
     );
   }
 }
-
-

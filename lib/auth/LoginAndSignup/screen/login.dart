@@ -75,25 +75,25 @@ class _SignupScreenState extends State<LoginScreen> {
                   TextFieldInput(
                       icon: Icons.person,
                       textEditingController: emailController,
-                      hintText: 'Enter your email',
+                      hintText: 'البريد الالكتروني',
                       textInputType: TextInputType.text),
                   TextFieldInput(
                     icon: Icons.lock,
                     textEditingController: passwordController,
-                    hintText: 'Enter your password',
+                    hintText: 'كلمه المرور',
                     textInputType: TextInputType.text,
                     isPass: true,
                   ),
                   //  we call our forgot password below the login in button
                   const ForgotPassword(),
-                  MyButtons(onTap: loginUser, text: "Log In"),
+                  MyButtons(onTap: loginUser, text: "تسجيل الدخول"),
         
                   Row(
                     children: [
                       Expanded(
                         child: Container(height: 1, color: Colors.black26),
                       ),
-                      const Text("  or  "),
+                      const Text("  او  "),
                       Expanded(
                         child: Container(height: 1, color: Colors.black26),
                       )
@@ -125,7 +125,7 @@ class _SignupScreenState extends State<LoginScreen> {
                           ),
                           const SizedBox(width: 10),
                           const Text(
-                            "      Continue with Google",
+                            "         المتابعه بحساب جوجل",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -144,7 +144,7 @@ class _SignupScreenState extends State<LoginScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Don't have an account? "),
+                        const Text("ليس لديك حساب؟"),
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
@@ -154,7 +154,7 @@ class _SignupScreenState extends State<LoginScreen> {
                             );
                           },
                           child: const Text(
-                            "SignUp",
+                            "قم بانشاء حساب الان",
                             style: TextStyle(fontWeight: FontWeight.bold,color: Colors.blue),
                           ),
                         )

@@ -23,7 +23,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             myDialogBox(context);
           },
           child: const Text(
-            "Forgot Password?",
+            "هل نسيت كلمه السر؟",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -57,7 +57,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     children: [
                       Container(),
                       const Text(
-                        "Forgot Your Password",
+                        "نسيت كلمه المرور",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -76,7 +76,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     controller: emailController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: "Enter the Email",
+                      labelText: "ادخل البريد الخاص بك",
                       hintText: "eg abc@gmail.com",
                     ),
                   ),
@@ -104,7 +104,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     // if we remember the password then we can easily login
                     // if we forget the password then we apply this method
                     child: const Text(
-                      "Send",
+                      "ارسال",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,

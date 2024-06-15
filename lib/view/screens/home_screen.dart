@@ -13,7 +13,10 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text('الصفحه الرئيسيه'),
+          child: Text(
+            'Doctor',
+            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       drawer: Drawer(
@@ -27,7 +30,8 @@ class HomePage extends StatelessWidget {
                   color: Colors.white, // Background color for drawer header
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 1.0), // Adjust the top padding to move the image down
+                  padding: const EdgeInsets.only(top: 1.0),
+                  // Adjust the top padding to move the image down
                   child: Image.asset(
                     'assets/images/اخصائية-تخاطب.jpg',
                     fit: BoxFit.cover,
@@ -80,6 +84,21 @@ class HomePage extends StatelessWidget {
                 },
               ),
               ListTile(
+                leading: Icon(Icons.info_outline_rounded),
+                title: Text('الاطفال المسجله'),
+                tileColor: Colors.blue,
+                textColor: Colors.black,
+                iconColor: Colors.blue,
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => InfoForChildren(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
                 leading: Icon(Icons.logout),
                 title: Text('تسجيل الخروج'),
                 tileColor: Colors.blue,
@@ -103,39 +122,13 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             CategoriesFields(
-                  (category) {
+              (category) {
                 // Do something with the selected category
               },
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        notchMargin: 10,
-        shape: CircularNotchedRectangle(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> DoctorScreen()));
-              },
-              icon: Icon(
-                Icons.list,
-                color: Colors.blue,
-              ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.settings,
-                color: Colors.blue,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
-
 }
